@@ -1,0 +1,54 @@
+name: LUNA RAUM Flex native acceptance
+on:
+  push:
+    branches: ['flex/room-2.0-20260914']
+    paths: ['tools/flex-v2/**', '.github/workflows/flex-room-v2.yml']
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Reconstruct the exact single-file candidate
+        run: |
+          python3 - <<'PY'
+          import pathlib,base64,lzma,json,hashlib,subprocess
+          root=pathlib.Path('candidate');root.mkdir()
+          paths=sorted(pathlib.Path('tools/flex-v2').glob('*.b64'))
+          assert [p.name for p in paths]==['00.b64','01.b64','02.b64','03.b64']
+          packed=''.join(p.read_text().strip() for p in paths)
+          assert len(packed)==49904, len(packed)
+          payload=json.loads(lzma.decompress(base64.b64decode(packed,validate=True)))
+          base=subprocess.check_output(['git','cat-file','blob','d6b665a75dad4187a9e3a40746da45b4cd1e765b'])
+          assert hashlib.sha256(base).hexdigest()==payload['base_sha256']
+          runtime=b''.join(base[o[0]:o[0]+o[1]] if isinstance(o,list) else o.encode('utf-8') for o in payload['ops'])
+          assert hashlib.sha256(runtime).hexdigest()==payload['runtime_sha256']=='de6158f23b0d0cbdd7e1c6184ed9b50c33dc71aa05bda4583889b5fbd050198d'
+          (root/'Luna-Raum.html').write_bytes(runtime)
+          for name,text in payload['files'].items():
+            assert name in ['tests/flex_qa.py','README.md','LICENSE','.nojekyll']
+            p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text)
+          p=root/'tests/flex_qa.py';s=p.read_text();s=s.replace(' page.wait_for_timeout(800)\n', ' for i in range(250):\n  if not ev("Luna.gpu.initializing"):break\n  page.wait_for_timeout(40)\n page.wait_for_timeout(150)\n');p.write_text(s)
+          (root/'SHA256SUMS').write_text(hashlib.sha256(runtime).hexdigest()+'  Luna-Raum.html\n')
+          print('Reconstructed',len(runtime),'bytes; SHA256',payload['runtime_sha256'])
+          PY
+      - name: Install browser test dependencies only
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Real origin, interaction, migration, exports, WebGPU and visual captures
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory candidate >/tmp/luna-server.log 2>&1 &
+          mkdir -p candidate/qa/flex/native
+          set -o pipefail
+          python3 candidate/tests/flex_qa.py --url http://127.0.0.1:8765/Luna-Raum.html --out candidate/qa/flex/native --require-gpu 2>&1 | tee candidate/qa/flex/native/execution.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: luna-raum-flex-v2-native
+          path: candidate/
+          include-hidden-files: true
+          retention-days: 7
