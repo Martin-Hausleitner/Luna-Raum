@@ -1,0 +1,101 @@
+PASS shell-first-view-under-700ms 318.1000000014901
+PASS runtime-started 
+PASS eight-engine-namespaces 
+PASS twelve-required-catalog-modules 
+PASS default-room-dimensions 
+PASS floor-area-15.12 
+PASS gross-walls-40.56 
+PASS openings-area-3.57 
+PASS net-walls-36.99 
+PASS berger-counts 
+PASS berger-run-4200 
+PASS worktop-3.60lm 
+PASS plinth-4.20lm 
+PASS oak-demo-total-3981.80 
+PASS no-default-collisions 
+PASS canvas-fallback-plan-drawn 
+PASS canvas-badge-truthful 
+PASS wall-dimension-click 
+PASS wall-selection-dimension-text 
+PASS catalog-button-adds-600 
+PASS snap-to-wall-next-free-slot 
+PASS quantities-update-after-place 
+PASS new-run-selected-after-place 
+PASS undo-placement 
+PASS redo-placement 
+PASS aabb-collision-detected 
+PASS collision-warning-visible 
+PASS undo-clears-collision 
+PASS 100mm-rounding 
+PASS keyboard-100mm-move 
+PASS keyboard-delete 
+PASS empty-room-zero-cabinet-takeoff 
+PASS place-on-wall-A 
+PASS place-on-wall-B 
+PASS place-on-wall-C 
+PASS place-on-wall-D 
+PASS four-wall-bounds-within-room 
+PASS white-price-lower-and-live 
+PASS white-finish-persisted-state 
+PASS room-edit-updates-areas 
+PASS opening-outside-room-edit-rejected 
+PASS door-form-adds-opening 
+PASS door-changes-net-wall-area 
+PASS overlapping-opening-form-rejected 
+PASS lshape-runs-3000-plus-2400 
+PASS lshape-no-collisions 
+PASS lshape-worktop-5.44 
+PASS local-note-add 
+PASS note-mark-done 
+PASS note-edit 
+PASS note-delete 
+PASS not-teams-disclosure 
+PASS json-roundtrip 
+PASS json-invalid-schema-rejected 
+PASS json-invalid-catalog-rejected 
+PASS json-duplicate-ids-rejected 
+PASS json-overlapping-openings-rejected 
+PASS csv-bom-and-semicolon 
+PASS csv-takeoff-values 
+PASS takeoff-report-visible 
+PASS csv-download-real-file 
+PASS json-download-real-file 
+PASS localstorage-after-reload 
+PASS force-canvas-setting 
+PASS restore-gpu-preference 
+PASS render-view-plan 
+PASS render-view-A 
+PASS render-view-B 
+PASS render-view-C 
+PASS render-view-D 
+PASS window-minimize-to-desktop 
+PASS desktop-icon-restores-app 
+PASS window-maximize 
+PASS window-close-keeps-state 
+PASS start-menu-opens 
+PASS start-menu-launches-room 
+PASS no-unrelated-branding-on-surface 
+PASS required-footer-visible 
+PASS no-runtime-network-dependencies 
+PASS no-horizontal-overflow-1440 
+PASS no-horizontal-overflow-834 
+PASS no-horizontal-overflow-390 
+PASS webgpu-native-pipeline {'status': 'MEASURED', 'frames': 180, 'elapsedMs': 2983.2000000000003, 'fps': 60.00268168409761, 'adapter': 'apple', 'vertices': 5244}
+PASS orbit-target-60fps 60.00268168409761
+PASS no-javascript-errors []
+{
+  "passed": 85,
+  "failed": 0,
+  "gpu": {
+    "ready": true,
+    "reason": "apple",
+    "stats": {
+      "bootMs": 318.1000000014901,
+      "fps": 0,
+      "vertices": 5244,
+      "frames": 3,
+      "adapter": "apple",
+      "errors": []
+    }
+  }
+}

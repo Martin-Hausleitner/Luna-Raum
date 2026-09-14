@@ -1,0 +1,96 @@
+{
+  "schema": "luna.raum.v1",
+  "scene": "berger",
+  "name": "Familie Berger",
+  "room": {
+    "w": 4200,
+    "d": 3600,
+    "h": 2600
+  },
+  "finish": "oak",
+  "grid": true,
+  "snap": true,
+  "forceCanvas": false,
+  "cabinets": [
+    {
+      "id": "a06434bc-6680-43ab-bad3-d774f2d4fa34",
+      "type": "tall600",
+      "wall": "A",
+      "offset": 0
+    },
+    {
+      "id": "182d69eb-9cbc-41fe-9f32-5402d0cf6785",
+      "type": "base800",
+      "wall": "A",
+      "offset": 600
+    },
+    {
+      "id": "b5ad965e-3a7f-47ec-90db-4d9e0608221f",
+      "type": "base600",
+      "wall": "A",
+      "offset": 1400
+    },
+    {
+      "id": "4242c9fe-8209-43e3-bde7-65c5b045a71f",
+      "type": "sink600",
+      "wall": "A",
+      "offset": 2000
+    },
+    {
+      "id": "6cecb72c-ef5f-4b5f-8a83-fe2386a0b699",
+      "type": "gap600",
+      "wall": "A",
+      "offset": 2600
+    },
+    {
+      "id": "cbebb4d8-b8d9-4fb5-9a18-f440e3260409",
+      "type": "base1000",
+      "wall": "A",
+      "offset": 3200
+    },
+    {
+      "id": "41b0f391-62b2-4591-9f83-b84bd5959afb",
+      "type": "wall800",
+      "wall": "A",
+      "offset": 600
+    },
+    {
+      "id": "34f03771-629d-4f7d-981e-b5ee92946959",
+      "type": "wall1000",
+      "wall": "A",
+      "offset": 3200
+    }
+  ],
+  "openings": [
+    {
+      "id": "136a567e-08aa-43ed-9b40-96493efb8d95",
+      "type": "window",
+      "wall": "A",
+      "offset": 1700,
+      "w": 1200,
+      "h": 1400,
+      "sill": 1050
+    },
+    {
+      "id": "4a36ff6f-4bfa-4d87-94a3-7880dfd4ca93",
+      "type": "door",
+      "wall": "C",
+      "offset": 900,
+      "w": 900,
+      "h": 2100,
+      "sill": 0
+    }
+  ],
+  "notes": [
+    {
+      "id": "b3c71740-5c8f-4695-a1e2-3d06cd229ed4",
+      "text": "Steckdose 350 mm",
+      "done": false
+    },
+    {
+      "id": "3c163da8-bfb1-4467-99a3-326342ab74e4",
+      "text": "Wasser 600 mm",
+      "done": false
+    }
+  ]
+}

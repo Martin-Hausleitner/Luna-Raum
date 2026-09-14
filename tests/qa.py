@@ -23,7 +23,7 @@ with sync_playwright() as p:
  def load():
   if args.content:page.set_content(pathlib.Path(args.content).read_text())
   else:page.goto(args.url,wait_until='load')
-  page.wait_for_function('document.documentElement.dataset.ready === "true"');page.wait_for_timeout(1000)
+  page.locator('html[data-ready="true"]').wait_for(state='attached');page.wait_for_timeout(1000)
  def ev(s):return page.evaluate(s)
  def reset(name='berger'):
   ev('Luna.debug.loadScene('+json.dumps(name)+')');page.wait_for_timeout(80)
@@ -107,7 +107,7 @@ with sync_playwright() as p:
   page.set_viewport_size({'width':1600,'height':1000})
   reset();app('room');ev('Luna.debug.setView("3d")');page.wait_for_timeout(700)
   if ev('Luna.gpu.ready'):
-   bm=ev('Luna.gpu.benchmark(180)');(out/'orbit-performance.json').write_text(json.dumps(bm,indent=2));record('webgpu-native-pipeline',True,bm);record('orbit-target-60fps',bm['fps']>=55,bm['fps'])
+   bm=ev('Luna.gpu.benchmark(180)');(out/'orbit-performance.json').write_text(json.dumps(bm,indent=2));record('webgpu-native-pipeline',True,bm);record('orbit-target-60fps',bm['fps']>=59,bm['fps'])
   else:record('webgpu-native-pipeline',False,gpu['reason'])
  reset();app('room');ev('Luna.debug.setView("3d")');page.wait_for_timeout(4500)
  page.locator('#minimize').click();shot('01-desktop.png');page.locator('#desktopIcons [data-app=room]').click();page.wait_for_timeout(300);shot('02-room-3d.png')
