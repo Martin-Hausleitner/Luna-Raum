@@ -1,0 +1,476 @@
+{
+  "url": "https://martin-hausleitner.github.io/Luna-Raum/",
+  "browser": "152.0.7977.83",
+  "host": "macOS-26.6.2-arm64-arm-64bit",
+  "viewport": [
+    1600,
+    1000
+  ],
+  "gpu": {
+    "ready": true,
+    "reason": "apple",
+    "stats": {
+      "bootMs": 318.1000000014901,
+      "fps": 0,
+      "vertices": 5244,
+      "frames": 3,
+      "adapter": "apple",
+      "errors": []
+    }
+  },
+  "checks": [
+    {
+      "test": "shell-first-view-under-700ms",
+      "pass": true,
+      "detail": 318.1000000014901
+    },
+    {
+      "test": "runtime-started",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "eight-engine-namespaces",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "twelve-required-catalog-modules",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "default-room-dimensions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "floor-area-15.12",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "gross-walls-40.56",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "openings-area-3.57",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "net-walls-36.99",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "berger-counts",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "berger-run-4200",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "worktop-3.60lm",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "plinth-4.20lm",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "oak-demo-total-3981.80",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-default-collisions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "canvas-fallback-plan-drawn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "canvas-badge-truthful",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "wall-dimension-click",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "wall-selection-dimension-text",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "catalog-button-adds-600",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "snap-to-wall-next-free-slot",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "quantities-update-after-place",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "new-run-selected-after-place",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "undo-placement",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "redo-placement",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "aabb-collision-detected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "collision-warning-visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "undo-clears-collision",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "100mm-rounding",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "keyboard-100mm-move",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "keyboard-delete",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "empty-room-zero-cabinet-takeoff",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "place-on-wall-A",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "place-on-wall-B",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "place-on-wall-C",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "place-on-wall-D",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "four-wall-bounds-within-room",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "white-price-lower-and-live",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "white-finish-persisted-state",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "room-edit-updates-areas",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "opening-outside-room-edit-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "door-form-adds-opening",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "door-changes-net-wall-area",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "overlapping-opening-form-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "lshape-runs-3000-plus-2400",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "lshape-no-collisions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "lshape-worktop-5.44",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "local-note-add",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "note-mark-done",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "note-edit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "note-delete",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "not-teams-disclosure",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-roundtrip",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-invalid-schema-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-invalid-catalog-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-duplicate-ids-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-overlapping-openings-rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "csv-bom-and-semicolon",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "csv-takeoff-values",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "takeoff-report-visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "csv-download-real-file",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "json-download-real-file",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "localstorage-after-reload",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "force-canvas-setting",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "restore-gpu-preference",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "render-view-plan",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "render-view-A",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "render-view-B",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "render-view-C",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "render-view-D",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "window-minimize-to-desktop",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "desktop-icon-restores-app",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "window-maximize",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "window-close-keeps-state",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "start-menu-opens",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "start-menu-launches-room",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-unrelated-branding-on-surface",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "required-footer-visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-runtime-network-dependencies",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-horizontal-overflow-1440",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-horizontal-overflow-834",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "no-horizontal-overflow-390",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "test": "webgpu-native-pipeline",
+      "pass": true,
+      "detail": {
+        "status": "MEASURED",
+        "frames": 180,
+        "elapsedMs": 2983.2000000000003,
+        "fps": 60.00268168409761,
+        "adapter": "apple",
+        "vertices": 5244
+      }
+    },
+    {
+      "test": "orbit-target-60fps",
+      "pass": true,
+      "detail": 60.00268168409761
+    },
+    {
+      "test": "no-javascript-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 85,
+  "failed": 0,
+  "errors": [],
+  "requests": [
+    "https://martin-hausleitner.github.io/Luna-Raum/",
+    "https://martin-hausleitner.github.io/Luna-Raum/"
+  ],
+  "screenshots": {
+    "02-room-3d.png": "fa5cc50a6c263bcca572b8f91dfad443017d313877a68038a379bed13fda7b3b",
+    "03-plan.png": "75a9c41d04db9a62045ec6acff67bd9e8af76f9b3c98390fd49fc62fc5c1fa85",
+    "07-empty-room.png": "6fc97f4f0bc3853f4f980f1622d9215339ae5e9e0b6f6cac2471af5afe6b2314",
+    "05-aufmass.png": "ab177f007d9286bb70c99c333f2880092f4f66881110e50a0e445e0cc3436b11",
+    "10-mobile.png": "3204bc9a9ac027d81847139edabe8599d9da0d5d415dfc62a1c7674e5b462e80",
+    "06-catalog.png": "6e90d4521842a37f69f10fdce3c7abaada4c74483f43696687ccc0e64136ece9",
+    "04-elevation.png": "147f4bd20613b31dee3a7ba036b9119d75c64e01180b911f85b8392b102beae7",
+    "08-settings.png": "4be536b4d2780a0600f90b3f819eec89b3b01adbc11cfa96faad4bd152ecb2fe",
+    "01-desktop.png": "88979ff0fbbe1cb49d11b28f35b84bf47d37968a6084228c44f40df539de373b",
+    "09-canvas-fallback.png": "3def9b67e5b194c978c0ad278678aedaf97d308e406c4d6690d1ad330dab5162"
+  },
+  "runtimeSha256": "94904a6cf5f4e9935ebac0686a5ed100a546ff865591e7431aa8d483190603db",
+  "observedAt": "2026-09-14T01:56:35.748859+00:00"
+}

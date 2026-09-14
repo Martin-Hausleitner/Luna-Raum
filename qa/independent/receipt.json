@@ -1,0 +1,34 @@
+{
+  "runtimeSha256": "94904a6cf5f4e9935ebac0686a5ed100a546ff865591e7431aa8d483190603db",
+  "httpStatus": 200,
+  "canonicalRuntimePreserved": true,
+  "note": "A complete canonical build appeared in the requested public repository during this run. Its history and runtime were preserved, then its local file and live Pages were independently re-tested. The test harness readiness check was made CSP-safe and now exits non-zero on failures.",
+  "results": [
+    {
+      "target": "local",
+      "checks": 85,
+      "bootMs": 106.39999999850988,
+      "benchmark": {
+        "status": "MEASURED",
+        "frames": 180,
+        "elapsedMs": 2983.2,
+        "fps": 60.00268168409762,
+        "adapter": "apple",
+        "vertices": 5244
+      }
+    },
+    {
+      "target": "live",
+      "checks": 85,
+      "bootMs": 318.1000000014901,
+      "benchmark": {
+        "status": "MEASURED",
+        "frames": 180,
+        "elapsedMs": 2983.2000000000003,
+        "fps": 60.00268168409761,
+        "adapter": "apple",
+        "vertices": 5244
+      }
+    }
+  ]
+}
