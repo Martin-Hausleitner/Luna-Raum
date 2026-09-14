@@ -1,0 +1,62 @@
+name: LUNA RAUM v2 acceptance
+on:
+  push:
+    branches: [main]
+    paths: ['tools/v2/**', '.github/workflows/detail-v2.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: luna-raum-v2-qa
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Build self-contained upgrade from checked source bundle
+        if: hashFiles('tools/v2/source.bundle.json') != ''
+        run: |
+          python3 - <<'PY'
+          import base64,gzip,hashlib,json,pathlib,shutil,subprocess
+          root=pathlib.Path.cwd(); build=root/'build-v2'; build.mkdir(exist_ok=True)
+          payload=json.loads((root/'tools/v2/source.bundle.json').read_text())
+          raw=gzip.decompress(base64.b64decode(payload['gzip_base64'],validate=True))
+          assert hashlib.sha256(raw).hexdigest()==payload['source_sha256'],'Bundle checksum mismatch'
+          base=(root/'Luna-Raum.html').read_bytes()
+          assert hashlib.sha256(base).hexdigest()==payload['base_sha256'],'Base runtime changed; review before rebuilding'
+          (build/'base.html').write_bytes(base)
+          for name,text in json.loads(raw).items():
+              assert pathlib.PurePosixPath(name).name==name and name in ['early.js','extension.js','mesh-v2.js','shader.wgsl','style-v2.css','build.py','qa_v2.py','README.md'],'Unexpected source file'
+              (build/name).write_text(text)
+          (build/'original/qa').mkdir(parents=True,exist_ok=True)
+          shutil.copy2(root/'qa/export-Projekt.json',build/'original/qa/export-Projekt.json')
+          shutil.copy2(root/'LICENSE',build/'LICENSE')
+          subprocess.run(['python3',str(build/'build.py')],check=True)
+          subprocess.run(['node','--check',str(build/'runtime.js')],check=True)
+          PY
+      - name: Install browser QA tools (not runtime dependencies)
+        if: hashFiles('tools/v2/source.bundle.json') != ''
+        run: |
+          python3 -m pip install 'playwright==1.57.0'
+          python3 -m playwright install --with-deps chromium
+      - name: Exercise real WebGPU and full user workflows
+        if: hashFiles('tools/v2/source.bundle.json') != ''
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory build-v2 > /tmp/luna-raum-v2-server.log 2>&1 &
+          python3 - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import subprocess
+          with sync_playwright() as p:
+              executable=p.chromium.executable_path
+          subprocess.run(['python3','build-v2/qa_v2.py','--url','http://127.0.0.1:8765/Luna-Raum.html','--browser',executable,'--require-gpu','--out','build-v2/qa/ci'],check=True)
+          PY
+      - name: Retain actual screenshots, exports, source and test results
+        if: always() && hashFiles('tools/v2/source.bundle.json') != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Luna-Raum-v2-verified-candidate
+          path: build-v2/
+          retention-days: 7
+          if-no-files-found: error
