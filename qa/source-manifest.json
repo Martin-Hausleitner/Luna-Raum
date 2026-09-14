@@ -1,0 +1,68 @@
+[
+  {
+    "repository": "wieslawsoltes/Aster",
+    "sha": "a7cca00c03837f8f94e2f6b1cccc2f82830e32fc",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/StratumBIM",
+    "sha": "675178103f2d35b6fa5d131543c9433a8d6013d8",
+    "license": "MIT",
+    "role": "adapted matrix/vector math"
+  },
+  {
+    "repository": "wieslawsoltes/ConvergeStudio",
+    "sha": "473ba24141efe067c92d6756757a3a9fa2c582c7",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/PlanforgeReview",
+    "sha": "f6b4978c65ef8a8f3ff35687d154fcc40687101f",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/AureonStudio",
+    "sha": "b7a4d48e5cfa2253c4ad1cd388e8ff63ac0532b3",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/Formalyth",
+    "sha": "14f32d9fa468a158cafc60707d6f3593220576b8",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/Draftline",
+    "sha": "cdb4f81a832b89bbb5f278a8c08adccf0cb61dc0",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/KestrelCAD",
+    "sha": "7a1e84c67fd24410c22f0d1a45b2e54120b32d0e",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/Orivane",
+    "sha": "af71000f3b44aab5bc7638b21cfee3e1733df233",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/VeyraWorkspace",
+    "sha": "328dbc75cb754ab809ece30c4c79913619245267",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  },
+  {
+    "repository": "wieslawsoltes/Gridline",
+    "sha": "dab377510f5e3600b228e0fb1baba2e131e0ec47",
+    "license": "MIT",
+    "role": "workflow/reference inspection"
+  }
+]
