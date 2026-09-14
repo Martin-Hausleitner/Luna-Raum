@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  actions: read
 concurrency:
   group: luna-raum-atelier-v3
   cancel-in-progress: true
@@ -16,27 +15,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Build single-file upgrade
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Build single-file upgrade from preserved source
         run: |
-          gh api repos/Martin-Hausleitner/Luna-Raum/actions/artifacts/10340316676/zip > /tmp/v2.zip
-          mkdir candidate
-          unzip -q /tmp/v2.zip -d candidate
-          python3 tools/v3/upgrade.py candidate
+          python3 tools/v3/build_all.py candidate
           node --check candidate/runtime.js
           python3 -m pip install playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Existing planning workflows regression
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 --directory candidate >/tmp/luna-server.log 2>&1 &
-          xvfb-run -a -s '-screen 0 1920x1200x24' python3 - <<'PY'
-          from playwright.sync_api import sync_playwright
-          import subprocess
-          with sync_playwright() as p:
-            exe=p.chromium.executable_path
-          subprocess.run(['python3','candidate/qa_v3_legacy.py','--url','http://127.0.0.1:8765/Luna-Raum.html','--browser',exe,'--software-gpu','--require-gpu','--out','candidate/qa/v3-regression'],check=True)
-          PY
+          xvfb-run -a -s '-screen 0 1920x1200x24' python3 candidate/qa_v3_legacy.py --url http://127.0.0.1:8765/Luna-Raum.html --software-gpu --require-gpu --out candidate/qa/v3-regression
       - name: Real pixels and new workflows
         if: always()
         run: |
