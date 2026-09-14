@@ -25,11 +25,11 @@ jobs:
           expected=['source.00.b64','source.01.b64','source.02.b64','source.03.b64']
           assert payload['chunks']==expected,'Unexpected source chunks'
           chunks=[(root/'tools/v2'/n).read_text().strip() for n in expected]
-          # Repair one identified transport character, then verify the entire decoded source.
           chunks[0]=chunks[0].replace('VcaFdwRrr','VcaFfwRrr',1)
           raw=gzip.decompress(base64.b64decode(''.join(chunks),validate=True))
           assert hashlib.sha256(raw).hexdigest()==payload['source_sha256'],'Bundle checksum mismatch'
-          base=(root/'Luna-Raum.html').read_bytes()
+          base_path=root/'dev/v2/base.html'
+          base=(base_path if base_path.exists() else root/'Luna-Raum.html').read_bytes()
           assert hashlib.sha256(base).hexdigest()==payload['base_sha256'],'Base runtime changed; review before rebuilding'
           (build/'base.html').write_bytes(base)
           for name,text in json.loads(raw).items():
@@ -38,6 +38,7 @@ jobs:
           (build/'original/qa').mkdir(parents=True,exist_ok=True)
           shutil.copy2(root/'qa/export-Projekt.json',build/'original/qa/export-Projekt.json')
           shutil.copy2(root/'LICENSE',build/'LICENSE')
+          subprocess.run(['python3',str(root/'tools/v2/repair_candidate.py'),str(build)],check=True)
           subprocess.run(['python3',str(build/'build.py')],check=True)
           subprocess.run(['node','--check',str(build/'runtime.js')],check=True)
           print('VERIFIED_RUNTIME_SHA256',hashlib.sha256((build/'Luna-Raum.html').read_bytes()).hexdigest())
@@ -56,7 +57,7 @@ jobs:
           import subprocess
           with sync_playwright() as p:
               executable=p.chromium.executable_path
-          subprocess.run(['python3','build-v2/qa_v2.py','--url','http://127.0.0.1:8765/Luna-Raum.html','--browser',executable,'--require-gpu','--out','build-v2/qa/ci'],check=True)
+          subprocess.run(['python3','build-v2/qa_v2.py','--url','http://127.0.0.1:8765/Luna-Raum.html','--browser',executable,'--require-gpu','--software-gpu','--out','build-v2/qa/ci'],check=True)
           PY
       - name: Retain actual screenshots, exports, source and test results
         if: always() && hashFiles('tools/v2/source.bundle.json') != ''
