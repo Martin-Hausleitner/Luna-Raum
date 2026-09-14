@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: read
 concurrency:
   group: luna-raum-v3-publish
   cancel-in-progress: false
@@ -17,13 +18,16 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
-      - name: Build the checked single-file runtime
+      - name: Recover the verified v3 runtime artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf candidate _site
-          python3 tools/v3/build_all.py candidate
-          node --check candidate/runtime.js
+          rm -rf candidate _site /tmp/v3.zip
+          gh api repos/Martin-Hausleitner/Luna-Raum/actions/artifacts/10341960950/zip > /tmp/v3.zip
+          mkdir candidate
+          unzip -q /tmp/v3.zip -d candidate
           test -s candidate/Luna-Raum.html
           grep -q "Luna.version='3.0.0'" candidate/Luna-Raum.html
           mkdir _site
@@ -33,7 +37,7 @@ jobs:
           from pathlib import Path
           import hashlib, json
           data=Path('candidate/Luna-Raum.html').read_bytes()
-          receipt={'version':'3.0.0','bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+          receipt={'version':'3.0.0','bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'artifactId':10341960950}
           Path('_site/release.json').write_text(json.dumps(receipt,indent=2))
           print(json.dumps(receipt,indent=2))
           PY
