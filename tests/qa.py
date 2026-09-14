@@ -117,3 +117,5 @@ with sync_playwright() as p:
  reset();app('settings');page.wait_for_timeout(4500);shot('08-settings.png')
  app('room');ev('Luna.store.state.forceCanvas=true;Luna.debug.setView("3d")');shot('09-canvas-fallback.png');ev('Luna.store.state.forceCanvas=false;Luna.debug.setView("3d")')
  record('no-javascript-errors',not errors,errors);report={'url':args.url or 'about:blank with local inline HTML','browser':b.version,'host':platform.platform(),'viewport':[1600,1000],'gpu':gpu,'checks':checks,'passed':sum(c['pass'] for c in checks),'failed':sum(not c['pass'] for c in checks),'errors':errors,'requests':requests,'screenshots':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in out.glob('*.png')}};(out/'test-results.json').write_text(json.dumps(report,indent=2,ensure_ascii=False));print(json.dumps({'passed':report['passed'],'failed':report['failed'],'gpu':gpu},indent=2),flush=True);b.close()
+
+sys.exit(1 if report["failed"] else 0)
