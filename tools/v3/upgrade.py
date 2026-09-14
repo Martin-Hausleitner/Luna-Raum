@@ -3,7 +3,7 @@ from pathlib import Path
 import sys,re,hashlib,json,shutil
 D=Path(sys.argv[1]); source=Path(__file__).parent
 s=(D/'Luna-Raum.html').read_text();assert 'Luna.version' in s and 'detailedMesh' in s
-s=s.replace(',.55,2.8)',',.35,6)')
+s=s.replace(',.55,2.8)',',.35,6)').replace('LUNA RAUM 2.0 · inoffizielle Browser-Demo','LUNA RAUM 3.0 · inoffizielle Browser-Demo')
 s=s.replace('<title>LUNA RAUM 2 · Detailplanung · EDV Hausleitner</title>','<title>LUNA RAUM 3 · Atelier · EDV Hausleitner</title>')
 extra=(source/'studio.js').read_text().replace('.presentation3 .inspector','.presentation3 #inspector').replace('.presentation3 #projectHeader','.presentation3 .projectbar')
 extra=extra.replace('.presentation3 #window{','.presentation3 #layout{grid-template-columns:minmax(0,1fr)!important}.presentation3 #window{')
@@ -13,16 +13,18 @@ s=s.replace('// Render an interactive Canvas plan first;',extra+'\n// Render an 
 s=s.replace("if(t.kind==='gap')continue;const inside", "if(t.kind==='gap'||t.equipment==='hood')continue;const inside")
 s=s.replace("add(t.drawers>0?'Auszugsfront':'Türfront',fronts,fw,fh,19,finishFor(c).name)","if(!t.shelf)add(t.drawers>0?'Auszugsfront':'Türfront',fronts,fw,fh,19,finishFor(c).name)")
 s=s.replace('const d=await a.requestDevice();this.device=d;', 'this.adapter=a;const d=await a.requestDevice();this.device=d;')
+s=s.replace("document.documentElement.dataset.ready='true';}));Luna.gpu.init();", "document.documentElement.dataset.ready='true';setTimeout(()=>Luna.gpu.init(),0);}));")
+s=s.replace('this.ready=true;this.initializing=false;this.resize();','this.ready=true;this.stats.gpuReadyMs=performance.now();this.initializing=false;this.resize();')
 (D/'Luna-Raum.html').write_text(s);(D/'runtime.js').write_text(s[s.index("'use strict';"):s.rindex('</script>')])
 def qa_patch(q):
  q=q.replace('headless=True','headless=False').replace('executable_path=p.chromium.executable_path',"executable_path='/usr/bin/google-chrome'").replace('executable_path=a.browser',"executable_path='/usr/bin/google-chrome'")
  q=q.replace("'--use-angle=swiftshader'","'--use-angle=swiftshader','--enable-gpu','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'").replace("'--disable-vulkan-surface'","'--use-vulkan=swiftshader'")
- q=q.replace("page.wait_for_function('","page.wait_for_function('() => ")
+ q=q.replace("page.wait_for_function('","page.wait_for_function('() => ").replace('!Luna.gpu.initializing','Luna.gpu.initializing===false')
  return q
 q=(D/'qa_v2.py').read_text().replace('Luna.version===\"2.0.0\"','Luna.version===\"3.0.0\"').replace('LUNA RAUM 2.0.0','LUNA RAUM 3.0.0').replace("'version-2'","'version-3'")
 (D/'qa_v3_legacy.py').write_text(qa_patch(q))
 q=qa_patch((source/'qa_studio.py').read_text())
-q=q.replace("page.goto(url);page.wait_for_timeout(3000);ev=page.evaluate", "page.goto(url);page.wait_for_function('() => Luna.gpu.ready || !Luna.gpu.initializing',timeout=60000);page.wait_for_timeout(500);ev=page.evaluate")
+q=q.replace("page.goto(url);page.wait_for_timeout(3000);ev=page.evaluate", "page.goto(url);page.wait_for_function('() => Luna.gpu.ready || Luna.gpu.initializing===false',timeout=60000);page.wait_for_timeout(500);ev=page.evaluate")
 q=q.replace("check('presentation-mode',ev('Luna.studio.state.present'))", "check('presentation-mode',ev('Luna.studio.state.present && document.querySelector(\"#stage\").getBoundingClientRect().width > innerWidth*.9'))")
 q=q.replace("page.click('#orbit3');before=ev('camera.yaw');page.wait_for_timeout(400);after=ev('camera.yaw');page.click('#orbit3');check('real-auto-orbit',after>before and ev('!Luna.studio.state.orbit'))", "page.bring_to_front();before=ev('camera.yaw');page.click('#orbit3');page.wait_for_function('(a) => camera.yaw > a + .005',arg=before,timeout=15000);after=ev('camera.yaw');page.click('#orbit3');page.wait_for_timeout(200);stopped=ev('camera.yaw');check('real-auto-orbit',after>before and ev('!Luna.studio.state.orbit'),{'before':before,'after':after,'stopped':stopped})")
 (D/'qa_studio.py').write_text(q)
