@@ -1,0 +1,46 @@
+name: LUNA RAUM render diagnosis
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/room-render-check.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Recover verified candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/Martin-Hausleitner/Luna-Raum/actions/artifacts/10340316676/zip > /tmp/candidate.zip
+          mkdir -p candidate
+          unzip -q /tmp/candidate.zip -d candidate
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Inspect pixels and presentation
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory candidate >/tmp/server.log 2>&1 &
+          python3 - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import json,pathlib
+          out=pathlib.Path('diagnostic');out.mkdir()
+          with sync_playwright() as p:
+            b=p.chromium.launch(headless=True,args=['--enable-unsafe-webgpu','--use-angle=swiftshader','--enable-features=Vulkan','--use-vulkan=swiftshader','--disable-vulkan-surface'])
+            page=b.new_page(viewport={'width':1920,'height':1080});errors=[];page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None);page.on('pageerror',lambda m:errors.append(str(m)))
+            page.goto('http://127.0.0.1:8765/Luna-Raum.html');page.wait_for_function('Luna.gpu.ready || !Luna.gpu.initializing');page.wait_for_timeout(2000)
+            data=page.evaluate('''async()=>{const g=Luna.gpu,c=document.querySelector('#gpuCanvas');g.render(performance.now());await g.device.queue.onSubmittedWorkDone();const d=document.createElement('canvas');d.width=c.width;d.height=c.height;const x=d.getContext('2d');x.drawImage(c,0,0);const a=x.getImageData(0,0,d.width,d.height).data;let n=0;for(let i=0;i<a.length;i+=4)if(a[i]<200&&a[i+3])n++;return {g:{ready:g.ready,stats:g.stats,vertices:g.vertexCount,width:g.width,height:g.height},canvas:{hidden:c.hidden,style:getComputedStyle(c).cssText,display:getComputedStyle(c).display,visibility:getComputedStyle(c).visibility,opacity:getComputedStyle(c).opacity,rect:c.getBoundingClientRect().toJSON()},pixels:n,cam:camera,first:mesh.slice(0,40)}}''')
+            page.screenshot(path=str(out/'01-original.png'));print('DIAGNOSTICS',json.dumps(data));(out/'diagnostic.json').write_text(json.dumps(data,indent=2))
+            page.evaluate('''()=>{document.querySelector('#gpuCanvas').style.zIndex='3';document.querySelector('#gpuCanvas').hidden=false;Luna.gpu.invalidate(true);}''');page.wait_for_timeout(300);page.screenshot(path=str(out/'02-z-index.png'))
+            page.evaluate('''async()=>{const g=Luna.gpu;const s=g.device.createShaderModule({code:`struct U{vp:mat4x4<f32>};@group(0) @binding(0) var<uniform> u:U;struct O{@builtin(position)p:vec4<f32>,@location(0)c:vec3<f32>};@vertex fn vs(@location(0)p:vec3<f32>,@location(2)c:vec3<f32>)->O{var o:O;o.p=u.vp*vec4<f32>(p,1);o.c=c;return o;}@fragment fn fs(i:O)->@location(0)vec4<f32>{return vec4<f32>(i.c,1);}`});g.pipeline=await g.device.createRenderPipelineAsync({layout:'auto',vertex:{module:s,entryPoint:'vs',buffers:[{arrayStride:40,attributes:[{shaderLocation:0,offset:0,format:'float32x3'},{shaderLocation:2,offset:24,format:'float32x3'}]}]},fragment:{module:s,entryPoint:'fs',targets:[{format:g.format}]},primitive:{topology:'triangle-list',cullMode:'none'},depthStencil:{format:'depth24plus',depthWriteEnabled:true,depthCompare:'less'}});g.bind=g.device.createBindGroup({layout:g.pipeline.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:g.uniform}}]});g.invalidate(true);}''');page.wait_for_timeout(500);page.screenshot(path=str(out/'03-simple-shader.png'))
+            print('ERRORS',errors);(out/'errors.json').write_text(json.dumps(errors));b.close()
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: luna-render-diagnosis
+          path: diagnostic/
+          retention-days: 7
