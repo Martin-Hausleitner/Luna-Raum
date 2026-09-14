@@ -1,0 +1,113 @@
+name: Publish LUNA RAUM v3
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v3.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: luna-raum-v3-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Build the checked single-file runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf candidate _site
+          python3 tools/v3/build_all.py candidate
+          node --check candidate/runtime.js
+          test -s candidate/Luna-Raum.html
+          grep -q "Luna.version='3.0.0'" candidate/Luna-Raum.html
+          mkdir _site
+          cp candidate/Luna-Raum.html _site/index.html
+          touch _site/.nojekyll
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          data=Path('candidate/Luna-Raum.html').read_bytes()
+          receipt={'version':'3.0.0','bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+          Path('_site/release.json').write_text(json.dumps(receipt,indent=2))
+          print(json.dumps(receipt,indent=2))
+          PY
+      - name: Update repository runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp candidate/Luna-Raum.html Luna-Raum.html
+          cp docs/ATELIER-V3.md README.md
+          if ! git diff --quiet -- Luna-Raum.html README.md; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add Luna-Raum.html README.md
+            git commit -m 'Publish LUNA RAUM v3 Atelier runtime'
+            git push origin HEAD:main
+          fi
+      - name: Publish GitHub Pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/luna-pages
+          mkdir /tmp/luna-pages
+          cp _site/index.html /tmp/luna-pages/index.html
+          cp _site/.nojekyll /tmp/luna-pages/.nojekyll
+          cp _site/release.json /tmp/luna-pages/release.json
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git switch --orphan _publish_pages
+          git rm -rf . >/dev/null 2>&1 || true
+          cp /tmp/luna-pages/index.html index.html
+          cp /tmp/luna-pages/.nojekyll .nojekyll
+          cp /tmp/luna-pages/release.json release.json
+          git add index.html .nojekyll release.json
+          git commit -m 'Deploy LUNA RAUM v3 to GitHub Pages'
+          git push --force origin HEAD:gh-pages
+      - name: Verify GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          expected=hashlib.sha256(Path('/tmp/luna-pages/index.html').read_bytes()).hexdigest()
+          url='https://martin-hausleitner.github.io/Luna-Raum/'
+          ok=False
+          for _ in range(12):
+            try:
+              req=urllib.request.Request(url+'?v='+str(time.time_ns()),headers={'Cache-Control':'no-cache'})
+              with urllib.request.urlopen(req,timeout=20) as r: body=r.read(); status=r.status
+              if status==200 and hashlib.sha256(body).hexdigest()==expected:
+                print('GITHUB_PAGES_PASS',url,expected);ok=True;break
+            except Exception as e: print('retry',type(e).__name__)
+            time.sleep(5)
+          if not ok: raise SystemExit('GitHub Pages did not converge to the v3 runtime')
+          PY
+      - name: Check Cloudflare credentials
+        id: cf
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        shell: bash
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then echo 'token=yes' >> "$GITHUB_OUTPUT"; else echo 'token=no' >> "$GITHUB_OUTPUT"; fi
+          if [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then echo 'account=yes' >> "$GITHUB_OUTPUT"; else echo 'account=no' >> "$GITHUB_OUTPUT"; fi
+      - name: Deploy Cloudflare Pages
+        if: ${{ steps.cf.outputs.token == 'yes' && steps.cf.outputs.account == 'yes' }}
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4'
+          command: pages deploy _site --project-name=luna-raum --branch=main --commit-dirty=true
+      - name: Cloudflare credentials missing
+        if: ${{ steps.cf.outputs.token != 'yes' || steps.cf.outputs.account != 'yes' }}
+        run: |
+          echo 'CLOUDFLARE_BLOCKED: CLOUDFLARE_API_TOKEN and/or CLOUDFLARE_ACCOUNT_ID is not available to this repository.'
+          exit 17
