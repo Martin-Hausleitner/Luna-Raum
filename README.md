@@ -1,100 +1,55 @@
-# LUNA RAUM
+# LUNA RAUM 3 · Atelier
 
-**Aufmaß · Küche · 3D-Gespräch** — EDV Hausleitner theme.
+**Aufmaß · Küche · 3D-Gespräch — EDV Hausleitner.** Unofficial, browser-only kitchen measure-up and discussion demo. Not BIM, not Roomle, not Vectorworks, not licensed WAWI, and not a production kitchen planner. MIT. One self-contained `Luna-Raum.html`: no runtime npm, CDN, external fonts, framework, iframe, account or application server.
 
-[Open the browser demo](https://martin-hausleitner.github.io/Luna-Raum/) · [Single runtime file](Luna-Raum.html) · [Local test evidence](qa/test-results.json)
+[Open the application](https://martin-hausleitner.github.io/Luna-Raum/) · [All 82 additions](FEATURES.md) · [Source](https://github.com/Martin-Hausleitner/Luna-Raum)
 
-## Deutsch
+## Deutsch · Mehr Detail, mehr Planungswerkzeuge
 
-Eine **inoffizielle, lokale 3D-Aufmaß- und Küchengespräch-Demo** für Tischlereien. Kein BIM-Modell, kein Roomle, kein Vectorworks, keine lizenzierte WAWI und kein fertigungstauglicher Küchenplaner. Sie öffnen `Luna-Raum.html` direkt im Browser. Es gibt keine Installation, kein Konto, keinen Anwendungsserver und keine npm-, CDN-, Framework- oder Schrift-Abhängigkeiten.
+Version 3 erweitert die ursprünglich ausgelieferte Version 1 um **82 Funktionen und Detailfähigkeiten**. Die zuvor nicht fertig ausgelieferte Detailversion 2 ist darin enthalten. Es sind nicht 82 zusätzliche Funktionen gegenüber einem bereits veröffentlichten Version-2-Produkt. Das vollständige nummerierte Verzeichnis steht in `FEATURES.md` und direkt in der Anwendung unter **Hilfe · Funktionen**.
 
-Der Windows-11-inspirierte Arbeitsplatz umfasst **Raum, Katalog, Aufmaß, Grundriss, Gespräch und Einstellungen**. Native WebGPU-Geometrie zeigt den möblierten Raum; ohne nutzbaren Adapter bleibt der vollständig bedienbare Canvas-2D-Grundriss. Der Rendererstatus zeigt den tatsächlich aktiven Pfad. Die App lädt keine anderen Anwendungen in Iframes.
+| Bereich | Jetzt vorhanden |
+|---|---|
+| Küche und Katalog | 30 Module: ursprüngliche Standards plus Auszüge, Kochfeld-, Spülen-, Backofen-, Kühlschrank-, Vorrats-, Vitrinen-, Regal- und Abzugsmodule. Volltextsuche, Gerätefilter, Platzieren per Klick oder Ziehen in den Grundriss. |
+| Korpusse und Innenleben | Maße und Montagehöhe je Möbel, eigenes Material, Frontbild, Griffe, Anschlag, Böden und Auszüge. Sichtbare Einzelplatten, aufklappbare Türen, herausgezogene Schubladen, Rahmen- und Rillenfronten. |
+| Material und Licht | Eiche, Weiß, Salbei, Graphit, Nussbaum, vier Griff- und vier Plattenvarianten, variable Plattenstärke und Überstände, drei Bodenoberflächen, Tageslichtregler, Unterbauleuchten, Schlagschatten und umschaltbare Detailstufe. |
+| Raum und Aufmaß | Insel anlegen, bestücken, verschieben und drehen; fünf Szenen; frei gesetzte Messlinien; 10/50/100-mm-Raster; bearbeitbare Anschlusspositionen für Wasser, Abfluss, Strom und Licht. |
+| Varianten und Prüfung | Sechs lokale Entwurfsstände mit Preisvergleich, Wiederherstellung und Export; AABB-Überschneidungen, grobe Abstands- und Installationshinweise; Hinweise als Gesprächsnotiz. |
+| Kamera und Gespräch | Bis 600 % Zoom, Auswahlfokus, seitliches Verschieben, Parallel- oder echte Perspektivprojektion, automatischer Orbit, Präsentationsmodus, acht lokale Blickpunkte, drei abgestimmte Stilpakete. |
+| Listen und Übergabe | Synchrones Aufmaß, schematische Bauteilvorschau, CSV für Mengen/Bauteile/Anschlüsse, bemaßter SVG-Grundriss, PNG der echten Ansicht, Projekt-JSON und Gesprächsblatt als Text. |
 
-### Das funktioniert
+### Direkt ausprobieren
 
-- Rechteckiger Raum, standardmäßig **4 200 × 3 600 × 2 600 mm**, editierbare Wandpaare A/C und B/D und Raumhöhe; Türen und Fenster mit Brüstungshöhe. Öffnungen werden geometrisch aus den 3D-Wänden ausgespart.
-- 3D-Orbit, Grundriss und vier Wandansichten A/B/C/D, sichtbare Millimetermaße, Raster 100 mm, Auswahl, Verschieben, Rückgängig/Wiederholen.
-- Zwölf Module: Unterschränke 300/400/500/600/800/1000 mm, Spülenunterschrank 600, Geschirrspülerlücke 600, Oberschränke 600/800/1000 und Hochschrank 600. Eiche natur oder Alpinweiß. Automatische Arbeitsplatte 600 mm tief und 40 mm stark, 20 mm Überstand an freien Enden und vorn.
-- Wandgebundene Platzierung, Suche nach dem nächsten freien Rasterplatz, dreidimensionale AABB-Kollisionen, Fenster-/Türbereichswarnungen. Manuell erzeugte Überschneidungen werden rot markiert, nicht verschwiegen.
-- Synchrones Aufmaß mit Boden- und Netto-/Bruttowandflächen, Schrankanzahlen, Zeilenlängen, Wangen, Arbeitsplatte, Sockel, Wandabschluss und offen ausgewiesenen **fiktiven Demopreisen in EUR**. CSV-Export, Projekt-JSON-Import/-Export und Druckansicht.
-- Drei Demoprojekte: Familie Berger, leerer Aufmaßraum und L-Küche 3 000 + 2 400 mm. Szenenwechsel mit einem Klick und Rückgängig-Möglichkeit.
-- Lokale Gesprächsnotizen, bearbeitbar/abhakbar/löschbar, etwa „Steckdose 350 mm“ und „Wasser 600 mm“. **not Teams**: kein Chatserver, keine Videokonferenz, keine Netzwerk-Synchronisation.
+Öffnen Sie **Berger Atelier · mit Insel** im Projektwähler. Ein vorhandenes lokales Projekt wird nicht beim Start überschrieben. Klicken Sie einen Inselschrank an: **F** fokussiert ihn, **O** öffnet die Front. Mit Mausrad und **Shift + Ziehen** können Sie Details vergrößern und die Kamera verschieben. **P** startet die Präsentation, **Esc** beendet sie. **Home** passt die Gesamtansicht ein; **Alt + Pfeiltasten** dreht die Kamera. **Blickpunkte** speichert Kamerapositionen lokal.
 
-### Bedienung
+**Materialien** ändert einzelne Oberflächen; **Stilpakete** ändert mehrere Oberflächen gemeinsam und setzt individuelle Materialübersteuerungen zurück. Das bleibt rückgängig machbar. **Anschlüsse**, **Varianten**, **Planprüfung** und **Bauteile** sind eigenständige Arbeitsbereiche. **Messen** beginnt eine Zweipunktmessung im Grundriss.
 
-Im Katalog wählen Sie eine Zielwand und klicken ein Modul. Im Grundriss ziehen Sie Schränke direkt; in 3D drehen Sie durch Ziehen und verschieben im Werkzeug **Verschieben**. Mausrad = Zoom, **Home** = einpassen, **G** = Grundriss, **3** = 3D, Pfeiltasten = ausgewählten Schrank um 100 mm verschieben, **Entf** = entfernen, **Strg/⌘ Z** = rückgängig. Fensterknöpfe minimieren, maximieren und schließen nur das lokale Arbeitsfenster; Desktop und Startmenü öffnen es wieder.
+### Daten und Sicherheit
 
-Die Anwendung speichert ausschließlich unter `localStorage["luna.raum.v1"]`. Datei- und HTTPS-Adresse haben getrennte Speicher. Exportieren/importieren Sie JSON für einen Wechsel. Ist lokaler Speicher gesperrt oder voll, meldet die Oberfläche ungesicherte Daten; sichern Sie dann ausdrücklich die JSON-Datei. Importgrenzen: 2 MB, 200 Schränke, 40 Öffnungen und 100 Notizen. Unbekannte Typen, doppelte IDs und überlappende Öffnungen werden abgewiesen.
+Projekte bleiben unter `luna.raum.v1` (Schema-Revision 2), Varianten unter `luna.raum.variants.v2`, Kamerablickpunkte unter `luna.raum.views.v3`. HTTPS und lokal geöffnete Dateien haben getrennte Speicherbereiche. Projekt-JSON ist der Übertragungs- und Sicherungsweg; Kamerablickpunkte sind gerätebezogen und nicht Teil des Projekt-JSON. Bei gesperrtem Speicher meldet die Anwendung den fehlenden Speicherzugriff. Gesprächsnotizen sind lokal — **not Teams**, kein Server und keine Mehrbenutzer-Synchronisation.
 
-### Rechenmodell und Grenzen
+## English · Engineering and verification
 
-Boden = Breite × Tiefe. Bruttowände = 2 × (Breite + Tiefe) × Höhe. Netto = Bruttowände minus rechteckige Tür-/Fensteröffnungen. Zusammenhängende Bodenmodule bilden Zeilen; Hochschränke tragen keine Arbeitsplatte, Geräte-Lücken schon. Arbeitsplatten erhalten 20 mm Zugabe nur an tatsächlich freien Enden; an der L-Ecke wird keine doppelte Endzugabe gerechnet. Sockel und Wandabschluss folgen nominellen Zeilenlängen. Wangen sind die freien Enden, nicht eine Material-/Beschlagbestellung.
+This extends the existing shared engine rather than replacing the original application. Native WebGPU renders the same parametric model used by placement bounds, quantities and exports. Canvas2D provides an honest top-plan fallback. The runtime has no external network dependencies. The extended code preserves the original Berger arithmetic as a regression fixture and validates imported data before changing the project.
 
-**Berger-Prüfwerte:** Boden 15,12 m²; Bruttowand 40,56 m²; Öffnungen 3,57 m²; Nettowand 36,99 m²; 4 Unter-, 2 Ober- und 1 Hochschrank plus 1 Geräte-Lücke; Zeile 4 200 mm; Arbeitsplatte 3,60 lm; Sockel 4,20 lm; Eiche-Demobetrag 3 981,80 EUR. Geräte, Montage und Umsatzsteuer sind nicht enthalten. Dies ist kein Angebot. Die L-Szene hat 5,44 lm Arbeitsplatte einschließlich zweier freier Endzugaben.
+The numbered feature register describes implemented additions, not a count of test assertions. Browser tests independently exercise model updates, invalid input, persistence, exports, the shell, mobile layout, camera behavior and rendered pixels. Screenshots are captured from the running application; they are not concept images.
 
-Nur rechteckige Räume und vereinfachte Kästen: keine Aufmaß-Hardware, schiefen Wände, Installations-/Ergonomieprüfung, Beschläge, Türanschläge, Eckbeschläge, Fertigungsdetails, belastbaren Kalkulationen, IFC/BIM-, CNC- oder Bestelldaten. Die Türbereichsprüfung ist konservative Quaderprüfung, keine zertifizierte Öffnungs-/Sicherheitsberechnung. Prüfen Sie alle Maße und Mengen vor jeder echten Planung oder Bestellung unabhängig.
+**New-version GPU verification uses Google Chrome on a Linux CI runner with software WebGPU. This proves working shader/geometry/presentation paths, not 60-fps hardware performance. The original version-1 Apple-GPU benchmark is not a version-3 benchmark.** Browser boot measurements are recorded per run. Hardware speed and device compatibility must be measured on the target machine. See the included QA reports for exact observations, failures and skips.
 
-## English
-
-LUNA RAUM is an **unofficial 3D measure-up and kitchen discussion demo**, browser-only and local-first, with an EDV Hausleitner / Luna theme. It is **not BIM, not Roomle, not Vectorworks, not licensed WAWI and not a production kitchen planner**. The complete runtime is the single `Luna-Raum.html` file: inline HTML/CSS/JavaScript/WGSL and vector icons, no runtime packages, CDN, external fonts, network calls or embedded remote apps.
-
-A native WebGPU pipeline renders room wall openings and warm-oak or white cabinet boxes. A Canvas2D top-plan fallback remains functional without WebGPU. Twelve catalog modules, wall snapping, three-dimensional AABB conflicts, adjustable rectangular room dimensions/openings, orbit/plan/four elevations, three example scenes, local notes, undo/redo, validated JSON project transfer and a live quantity/illustrative-price CSV are implemented. Quantities and unit-price assumptions are exposed; this is not a fabrication bill of materials or a commercial quotation.
-
-### Run and deploy
-
-Open `Luna-Raum.html` directly in a compatible browser, or serve this directory with any static HTTP server on localhost. For example:
+Build from the checked repository source, without downloading a temporary CI artifact:
 
 ```sh
-python3 -m http.server 8765 --bind 127.0.0.1
-# http://127.0.0.1:8765/Luna-Raum.html
+python3 tools/v3/build_all.py candidate
+python3 -m http.server 8765 --bind 127.0.0.1 --directory candidate
+# Open http://127.0.0.1:8765/Luna-Raum.html
 ```
 
-The public Pages root is deployed from **`gh-pages:/`**, where `index.html` is a **byte-identical, renamed deployment copy** of `main:Luna-Raum.html`. It is not a second implementation, wrapper or iframe. Main keeps exactly one runtime HTML file. README, LICENSE, tests and QA evidence are development/documentation assets, not runtime dependencies.
+Python/Playwright/Chrome are test tools only, never application runtime dependencies. The Actions workflow records the exact tested revision. `gh-pages:/index.html` is a byte-identical renamed copy of `main:Luna-Raum.html`, not a wrapper or second implementation.
 
-### Verification
+## Demo, nicht Fertigungsfreigabe
 
-`tests/qa.py` uses Python Playwright **for tests only**. It performs assertions and captures real browser screens at 1600 × 1000, plus responsive overflow checks at 1440 × 900, 834 × 1112 and 390 × 844. No npm command is required. With Python Playwright and an existing Chrome binary:
+Die Raumgrundform bleibt rechteckig; gegenüberliegende Wände sind gekoppelt. Geräte und Glas sind stilisierte Geometrie, keine Herstellerprodukte. Preise sind frei gewählte Demowerte ohne Geräte, Montage und Umsatzsteuer. Die Bauteilvorschau ist eine vereinfachte Modellzerlegung, kein geprüfter Zuschnitt: Beschläge, Nuten, Kanten, Toleranzen und Installationsanforderungen fehlen. Geöffnete Fronten sind sichtbar, ihre Bewegungsräume werden aber nicht als zertifizierte Kollisionsvolumen geprüft. Der Inselabstand-Hinweis ist eine Demoannahme, keine Norm. Keine IFC/BIM-, CNC-, Bestell- oder freigegebenen Fertigungsdaten. Maße, Anschlusslagen, Bewegungsräume und Mengen müssen vor Angebot, Bestellung oder Montage unabhängig geprüft werden.
 
-```sh
-python3 tests/qa.py --browser '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --url "file://$PWD/Luna-Raum.html" --out qa
-python3 tests/qa.py --browser '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --url https://martin-hausleitner.github.io/Luna-Raum/ --out qa/live
-```
+## Credits
 
-The test report records the actual URL, browser, platform, adapter, first-view time, runtime errors, screenshot SHA-256 values, export files and every assertion. `qa/orbit-performance.json` records a 180-frame real rendered orbit, not a hard-coded FPS badge. Boot is the first interactive rendered view; WebGPU initializes asynchronously while the usable plan is already shown. Performance measurements apply to the tested browser/hardware, not every machine. The test harness enables WebGPU explicitly; the product does not alter browser settings or bypass adapter availability.
-
-Required captures: `qa/01-desktop.png`, `02-room-3d.png`, `03-plan.png`, `04-elevation.png`, `05-aufmass.png`, `06-catalog.png`, `07-empty-room.png`, `08-settings.png`. Additional evidence includes `09-canvas-fallback.png`, `10-mobile.png`, exported CSV/JSON, local and live reports.
-
-## Reference projects, provenance and MIT credits
-
-The eleven supplied repositories were actually cloned and inspected during the build. This is a **bounded in-process implementation of the requested room/kitchen subset**, not eleven complete embedded products. Matrix/vector projection routines are adapted from **StratumBIM `src/core/math.js`** under MIT; their notice is retained inside the runtime HTML and LICENSE. Other repositories inform the shell/workflow/drawing/review/notes/list design; their complete application implementations and servers are **not** included. No Aster branding is displayed in the product.
-
-| Reference | Role | Inspected commit |
-|---|---|---|
-| [Aster](https://github.com/wieslawsoltes/Aster) · [demo](https://wieslawsoltes.github.io/Aster/) | Desktop/window-shell reference | `a7cca00c03837f8f94e2f6b1cccc2f82830e32fc` |
-| [StratumBIM](https://github.com/wieslawsoltes/StratumBIM) · [demo](https://wieslawsoltes.github.io/StratumBIM/) | Room/openings, adapted matrix/vector math | `675178103f2d35b6fa5d131543c9433a8d6013d8` |
-| [ConvergeStudio](https://github.com/wieslawsoltes/ConvergeStudio) · [demo](https://wieslawsoltes.github.io/ConvergeStudio/) | Coordination/conflict workflow | `473ba24141efe067c92d6756757a3a9fa2c582c7` |
-| [PlanforgeReview](https://github.com/wieslawsoltes/PlanforgeReview) · [demo](https://wieslawsoltes.github.io/PlanforgeReview/) | Quantity takeoff workflow | `f6b4978c65ef8a8f3ff35687d154fcc40687101f` |
-| [AureonStudio](https://github.com/wieslawsoltes/AureonStudio) · [demo](https://wieslawsoltes.github.io/AureonStudio/) | 3D viewport reference | `b7a4d48e5cfa2253c4ad1cd388e8ff63ac0532b3` |
-| [Formalyth](https://github.com/wieslawsoltes/Formalyth) · [demo](https://wieslawsoltes.github.io/Formalyth/) | Workbench reference | `14f32d9fa468a158cafc60707d6f3593220576b8` |
-| [Draftline](https://github.com/wieslawsoltes/Draftline) · [demo](https://wieslawsoltes.github.io/Draftline/) | Dimensioning reference | `cdb4f81a832b89bbb5f278a8c08adccf0cb61dc0` |
-| [KestrelCAD](https://github.com/wieslawsoltes/KestrelCAD) · [demo](https://wieslawsoltes.github.io/KestrelCAD/) | Plan/elevation/undo workflow | `7a1e84c67fd24410c22f0d1a45b2e54120b32d0e` |
-| [Orivane](https://github.com/wieslawsoltes/Orivane) · [demo](https://wieslawsoltes.github.io/Orivane/) | Local note-board reference | `af71000f3b44aab5bc7638b21cfee3e1733df233` |
-| [VeyraWorkspace](https://github.com/wieslawsoltes/VeyraWorkspace) · [demo](https://wieslawsoltes.github.io/VeyraWorkspace/) | Conversation-workspace reference only; no server | `328dbc75cb754ab809ece30c4c79913619245267` |
-| [Gridline](https://github.com/wieslawsoltes/Gridline) · [demo](https://wieslawsoltes.github.io/Gridline/) | Tabular schedule reference | `dab377510f5e3600b228e0fb1baba2e131e0ec47` |
-
-MIT License. Copyright © 2026 LUNA RAUM contributors. Adapted math: copyright © 2026 Stratum BIM contributors. No endorsement by the reference-project authors or any named commercial vendor is implied.
-
-## Measured release checks · 14 September 2026
-
-| Check | Local file | Public Pages root |
-|---|---:|---:|
-| Browser assertions | 85 / 85 PASS | 85 / 85 PASS |
-| First interactive rendered view | 129.7 ms | 249.9 ms |
-| Measured orbit (180 frames) | 60.0007 fps | 60.0027 fps |
-| JavaScript errors | 0 | 0 |
-| Adapter | Apple WebGPU | Apple WebGPU |
-| Screenshots | 1600 × 1000 | 1600 × 1000 |
-
-Browser: Chrome 152.0.7977.83 on the tested Mac. Public HTTPS returned HTTP 200 and the same SHA-256 as the single-file source. A separate launch without any WebGPU flags also initialized native WebGPU successfully (312.9 ms first view, no GPU errors). See [live assertions](qa/live/test-results.json), [live 3D capture](qa/live/02-room-3d.png), [live takeoff capture](qa/live/05-aufmass.png), and [default-Chrome smoke evidence](qa/live/default-chrome-smoke.json). The test harness first verifies arithmetic and actual UI interactions, then captures all specified scenes. Performance is measured on this machine, not promised for every device or network.
-
-Runtime SHA-256: `94904a6cf5f4e9935ebac0686a5ed100a546ff865591e7431aa8d483190603db`.
+Windows/workspace reference: [Aster](https://github.com/wieslawsoltes/Aster), [live reference](https://wieslawsoltes.github.io/Aster/). Projection math is adapted from MIT-licensed [StratumBIM](https://github.com/wieslawsoltes/StratumBIM); its copyright/license notice is retained in the HTML. The original project's complete reference/provenance table is retained below when this document is assembled into the release README. No endorsement or complete embedding of those applications is claimed.
