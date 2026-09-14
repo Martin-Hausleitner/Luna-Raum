@@ -4,6 +4,7 @@ import sys,re,hashlib,json,shutil
 D=Path(sys.argv[1]); source=Path(__file__).parent
 s=(D/'Luna-Raum.html').read_text();assert 'Luna.version' in s and 'detailedMesh' in s
 s=s.replace(',.55,2.8)',',.35,6)').replace('LUNA RAUM 2.0 · inoffizielle Browser-Demo','LUNA RAUM 3.0 · inoffizielle Browser-Demo')
+s=s.replace("const ctx=$('#drawing').getContext('2d');", "const ctx=$('#drawing').getContext('2d',{willReadFrequently:true});")
 s=s.replace('<title>LUNA RAUM 2 · Detailplanung · EDV Hausleitner</title>','<title>LUNA RAUM 3 · Atelier · EDV Hausleitner</title>')
 extra=(source/'studio.js').read_text().replace('.presentation3 .inspector','.presentation3 #inspector').replace('.presentation3 #projectHeader','.presentation3 .projectbar')
 extra=extra.replace('.presentation3 #window{','.presentation3 #layout{grid-template-columns:minmax(0,1fr)!important}.presentation3 #window{')
