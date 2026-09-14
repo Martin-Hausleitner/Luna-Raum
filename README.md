@@ -83,3 +83,18 @@ The eleven supplied repositories were actually cloned and inspected during the b
 | [Gridline](https://github.com/wieslawsoltes/Gridline) · [demo](https://wieslawsoltes.github.io/Gridline/) | Tabular schedule reference | `dab377510f5e3600b228e0fb1baba2e131e0ec47` |
 
 MIT License. Copyright © 2026 LUNA RAUM contributors. Adapted math: copyright © 2026 Stratum BIM contributors. No endorsement by the reference-project authors or any named commercial vendor is implied.
+
+## Measured release checks · 14 September 2026
+
+| Check | Local file | Public Pages root |
+|---|---:|---:|
+| Browser assertions | 85 / 85 PASS | 85 / 85 PASS |
+| First interactive rendered view | 129.7 ms | 249.9 ms |
+| Measured orbit (180 frames) | 60.0007 fps | 60.0027 fps |
+| JavaScript errors | 0 | 0 |
+| Adapter | Apple WebGPU | Apple WebGPU |
+| Screenshots | 1600 × 1000 | 1600 × 1000 |
+
+Browser: Chrome 152.0.7977.83 on the tested Mac. Public HTTPS returned HTTP 200 and the same SHA-256 as the single-file source. A separate launch without any WebGPU flags also initialized native WebGPU successfully (312.9 ms first view, no GPU errors). See [live assertions](qa/live/test-results.json), [live 3D capture](qa/live/02-room-3d.png), [live takeoff capture](qa/live/05-aufmass.png), and [default-Chrome smoke evidence](qa/live/default-chrome-smoke.json). The test harness first verifies arithmetic and actual UI interactions, then captures all specified scenes. Performance is measured on this machine, not promised for every device or network.
+
+Runtime SHA-256: `94904a6cf5f4e9935ebac0686a5ed100a546ff865591e7431aa8d483190603db`.

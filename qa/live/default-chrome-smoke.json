@@ -1,0 +1,14 @@
+{
+  "url": "https://martin-hausleitner.github.io/Luna-Raum/",
+  "browser": "152.0.7977.83",
+  "launchArgs": [],
+  "headless": true,
+  "renderer": "WebGPU",
+  "adapter": "apple",
+  "gpuReady": true,
+  "bootMs": 312.8999999985099,
+  "errors": [],
+  "httpStatus": 200,
+  "runtimeSha256": "94904a6cf5f4e9935ebac0686a5ed100a546ff865591e7431aa8d483190603db",
+  "source": "Observed live default Chrome smoke in job_11aa07cb5be1fafd105e2d7f stdout before the full live QA run"
+}
