@@ -31,7 +31,12 @@ jobs:
           for name,text in payload['files'].items():
             assert name in ['tests/flex_qa.py','README.md','LICENSE','.nojekyll']
             p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text)
-          p=root/'tests/flex_qa.py';s=p.read_text();s=s.replace(' page.wait_for_timeout(800)\n', ' for i in range(250):\n  if not ev("Luna.gpu.initializing"):break\n  page.wait_for_timeout(40)\n page.wait_for_timeout(150)\n');p.write_text(s)
+          p=root/'tests/flex_qa.py';s=p.read_text()
+          s=s.replace(' page.wait_for_timeout(800)\n', ' for i in range(250):\n  if not ev("Luna.gpu.initializing"):break\n  page.wait_for_timeout(40)\n page.wait_for_timeout(150)\n')
+          s=s.replace(",'--enable-features=Vulkan','--use-vulkan=swiftshader','--disable-vulkan-surface'",'')
+          s=s.replace(" if a.browser:opts['executable_path']=a.browser", " if a.browser:opts['executable_path']=a.browser\n else:opts['channel']='chromium'")
+          s=s.replace('page.screenshot(path=str(out/name))','page.screenshot(path=str(out/name),timeout=30000)')
+          p.write_text(s)
           (root/'SHA256SUMS').write_text(hashlib.sha256(runtime).hexdigest()+'  Luna-Raum.html\n')
           print('Reconstructed',len(runtime),'bytes; SHA256',payload['runtime_sha256'])
           PY
